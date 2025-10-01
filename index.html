@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài Thi Thử IOE Lớp 3 (ĐỀ SỐ 01.1)</title>
+    <title>Bài Thi Thử IOE Lớp 3</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -17,45 +16,29 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .word-block {
-            user-select: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.1.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
-    "react/": "https://aistudiocdn.com/react@^19.1.1/"
-  }
-}
-</script>
 </head>
 <body class="bg-gray-50 font-sans antialiased text-gray-800">
     <div id="root"></div>
 
     <script type="text/babel">
-        // --- DỮ LIỆU CÂU HỎI (from constants.ts) ---
+        // --- DATA (from constants.ts) ---
         const QUESTIONS = [
             { type: 'mc', question: "Which word has the underlined part pronounced like the letter ‘e’ in ’’r<b>e</b>d’’?", options: [ { text: 'A. table', isCorrect: false }, { text: 'B. bed', isCorrect: true }, { text: 'C. quiet', isCorrect: false }, { text: 'D. listen', isCorrect: false } ], correctAnswer: 'B. bed', correctAnswer_vi: 'Giường', hint_vi: "Tìm từ có âm /e/ giống như trong từ 'red'.", rationale_vi: "Chữ 'e' trong 'bed' được phát âm là /e/, giống với âm của 'e' trong 'red'. Các từ khác có phát âm khác.", rationale_en: "The 'e' in 'bed' is pronounced /e/, the same as the 'e' in 'red'. The other words have different pronunciations." },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ['What', 'colour', 'is', 'this?'], correctAnswer: 'What colour is this?', correctAnswer_vi: 'Đây là màu gì?', hint_vi: 'Đây là câu hỏi về màu sắc, bắt đầu bằng "What colour".', rationale_vi: 'Cấu trúc câu hỏi về màu sắc là "What colour is + [vật]?".', rationale_en: 'The question structure for color is "What colour is + [object]?".' },
             { type: 'fill-in-the-blank', question: 'See you la__er.', correctAnswer: 't', correctAnswer_vi: 't (để hoàn thành "later")', hint_vi: 'Từ này có nghĩa là "sau". (1 ký tự)', rationale_vi: 'Từ cần điền là "later" trong cụm từ "See you later" (Hẹn gặp lại sau).', rationale_en: 'The missing letter completes the word "later" in the phrase "See you later".' },
             { type: 'multimedia', question: '_NE, TWO, THREE', mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/Thi_cac_cap/2020-2021/Lop3/Captruong/Images/1-dt-22.jpg', correctAnswer: 'E', correctAnswer_vi: 'E (để hoàn thành "ONE")', hint_vi: 'Chữ cái còn thiếu để tạo thành một số đếm. (1 ký tự)', rationale_vi: 'Từ cần hoàn thành là "ONE", số một trong tiếng Anh.', rationale_en: 'The missing letter completes the word "ONE", the number one.' },
             { type: 'fill-in-the-blank', question: 'I want to st__y at home.', correctAnswer: 'a', correctAnswer_vi: 'a (để hoàn thành "stay")', hint_vi: 'Động từ này có nghĩa là "ở lại". (1 ký tự)', rationale_vi: 'Từ cần điền là "stay" (ở lại).', rationale_en: 'The missing letter completes the word "stay".' },
-            { type: 'multimedia', question: 'Listen and fill in the blank: ____', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2018/11/30/636791917314960573_Audio.mp3', audioContent: 'that', correctAnswer: 'that', correctAnswer_vi: 'kia', hint_vi:đó. (4 ký tự)', rationale_vi: 'Đoạn audio đọc từ "that".', rationale_en: 'The audio says the word "that".' },
+            { type: 'multimedia', question: 'Listen and fill in the blank: ____', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2018/11/30/636791917314960573_Audio.mp3', audioContent: 'that', correctAnswer: 'that', correctAnswer_vi: 'kia/đó', hint_vi: 'Từ có nghĩa là "kia" hoặc "đó". (4 ký tự)', rationale_vi: 'Đoạn audio đọc từ "that".', rationale_en: 'The audio says the word "that".' },
             { type: 'mc', question: 'Thank you very much. - You ... welcome.', options: [ { text: 'A. is', isCorrect: false }, { text: 'B. am', isCorrect: false }, { text: 'C. are', isCorrect: true }, { text: 'D. isn’t', isCorrect: false } ], correctAnswer: 'C. are', correctAnswer_vi: 'are', hint_vi: 'Cụm từ đáp lại lời cảm ơn.', rationale_vi: 'Cụm từ cố định là "You are welcome" (Không có gì).', rationale_en: 'The fixed phrase is "You are welcome".' },
-            { type: 'multimedia', question: 'Listen and fill in the blank: ____', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2018/11/30/636791924369289479_Audio.mp3', audioContent: 'ball', correctAnswer: 'ball', correctAnswer_vi: 'qủa nóng', hint_vi: 'Đây là một số đếm. (4 ký tự)', rationale_vi: 'Đoạn audio đọc từ "nine".', rationale_en: 'The audio says the word "ball".' },
+            { type: 'multimedia', question: 'Listen and fill in the blank: ____', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2018/11/30/636791924369289479_Audio.mp3', audioContent: 'ball', correctAnswer: 'ball', correctAnswer_vi: 'quả bóng', hint_vi: 'Một đồ vật dùng để chơi thể thao. (4 ký tự)', rationale_vi: 'Đoạn audio đọc từ "ball".', rationale_en: 'The audio says the word "ball".' },
             { type: 'mc', question: "Is your ruler short? - No, it isn't. It's ____ .", options: [ { text: 'A. large', isCorrect: false }, { text: 'B. big', isCorrect: false }, { text: 'C. long', isCorrect: true }, { text: 'D. small', isCorrect: false } ], correctAnswer: 'C. long', correctAnswer_vi: 'dài', hint_vi: 'Tìm từ trái nghĩa với "short" (ngắn).', rationale_vi: 'Từ trái nghĩa với "short" (ngắn) khi nói về kích thước của thước kẻ là "long" (dài).', rationale_en: 'The opposite of "short" in the context of a ruler is "long".' },
             { type: 'fill-in-the-blank', question: 'Thank you very m__h.', correctAnswer: 'uc', correctAnswer_vi: 'uc (để hoàn thành "much")', hint_vi: 'Từ này có nghĩa là "nhiều". (2 ký tự)', rationale_vi: 'Từ cần điền là "much" trong cụm từ "Thank you very much".', rationale_en: 'The missing letters complete the word "much".' },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ['Can', 'you', 'sing', 'a', 'song?'], correctAnswer: 'Can you sing a song?', correctAnswer_vi: 'Bạn có thể hát một bài hát không?', hint_vi: 'Đây là câu hỏi về khả năng, bắt đầu bằng "Can".', rationale_vi: 'Cấu trúc câu hỏi với "Can" là "Can + chủ ngữ + động từ + ...?".', rationale_en: 'The question structure with "Can" is "Can + subject + verb + ...?".' },
@@ -63,13 +46,13 @@
             { type: 'fill-in-the-blank', question: 'This is m_ cat.', correctAnswer: 'y', correctAnswer_vi: 'y (để hoàn thành "my")', hint_vi: 'Tính từ sở hữu có nghĩa là "của tôi". (1 ký tự)', rationale_vi: 'Tính từ sở hữu cho "I" là "my".', rationale_en: 'The possessive adjective for "I" is "my".' },
             { type: 'multimedia', question: 'Do you like ... TV? – Yes, I do.', mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2014/11/18/635519201705499605_566X320.jpg', imagePrompt: 'A child watching television.', options: [ { text: 'A. seeing', isCorrect: false }, { text: 'B. looking', isCorrect: false }, { text: 'C. watching', isCorrect: true }, { text: 'D. reading', isCorrect: false } ], correctAnswer: 'C. watching', correctAnswer_vi: 'xem', hint_vi: 'Động từ nào đi với TV?', rationale_vi: 'Động từ "watching" được dùng khi nói về việc xem TV.', rationale_en: 'The verb "watching" is used for television.' },
             { type: 'fill-in-the-blank', question: '__ this a ruler? – Yes, it is.', correctAnswer: 'Is', correctAnswer_vi: 'Is', hint_vi: 'Câu hỏi Yes/No với "it". (2 ký tự)', rationale_vi: 'Câu hỏi Yes/No với chủ ngữ "it" bắt đầu bằng "Is".', rationale_en: 'Yes/No questions with the subject "it" start with "Is".' },
-            { type: 'multimedia', question: 'This is the ________ room.', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2013/11/21/635206365802440185_Audio.mp3', audioContent: 'computer', correctAnswer: 'compurtes', correctAnswer_vi: 'maus tuownaans ', hint_vi: 'Tên một căn phòng trong nhà. (6 ký tự)', rationale_vi: 'Đoạn audio đọc từ "living", tạo thành "living room" (phòng khách).', rationale_en: 'The audio says "living", forming "living room".' },
+            { type: 'multimedia', question: 'This is the ________ room.', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2013/11/21/635206365802440185_Audio.mp3', audioContent: 'living', correctAnswer: 'living', correctAnswer_vi: 'phòng khách', hint_vi: 'Tên một căn phòng trong nhà. (6 ký tự)', rationale_vi: 'Đoạn audio đọc từ "living", tạo thành "living room" (phòng khách).', rationale_en: 'The audio says "living", forming "living room".' },
             { type: 'mc', question: 'A: _________. - B: Yes, you can', options: [ { text: 'A. Open your book!', isCorrect: false }, { text: 'B. Stand up!', isCorrect: false }, { text: 'C. May I go out?', isCorrect: true }, { text: 'D. Be quiet!', isCorrect: false } ], correctAnswer: 'C. May I go out?', correctAnswer_vi: 'Em có thể ra ngoài không?', hint_vi: 'Câu trả lời là sự cho phép.', rationale_vi: 'Câu trả lời "Yes, you can" dùng để cho phép, phù hợp với câu hỏi xin phép "May I go out?".', rationale_en: 'The answer "Yes, you can" grants permission, which fits the request "May I go out?".' },
             { type: 'multimedia', question: '____ the words aloud.', mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2019/11/29/637106206447289871_566X320.jpg', imagePrompt: 'A person reading a book.', correctAnswer: 'Read', correctAnswer_vi: 'Đọc', hint_vi: 'Hành động liên quan đến sách và từ ngữ. (4 ký tự)', rationale_vi: 'Hành động đọc to các từ là "Read the words aloud".', rationale_en: 'The action of reading words out loud is "Read the words aloud".' },
             { type: 'fill-in-the-blank', question: 'Wh_ is that? – It’s Mary.', correctAnswer: 'o', correctAnswer_vi: 'o (để hoàn thành "Who")', hint_vi: 'Từ để hỏi về người. (1 ký tự)', rationale_vi: 'Câu trả lời là một người ("Mary"), nên câu hỏi phải bắt đầu bằng "Who".', rationale_en: 'The answer is a person ("Mary"), so the question must start with "Who".' },
             { type: 'multimedia', question: '_______ table tennis.', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/Thi_cac_cap/2020-2021/Lop3/Captruong/Audio/4-tn-24.mp3', audioContent: 'I play table tennis.', options: [ { text: 'A. Peter plays', isCorrect: false }, { text: 'B. I play', isCorrect: true }, { text: 'C. Mai plays', isCorrect: false }, { text: 'D. My friends play', isCorrect: false } ], correctAnswer: 'B. I play', correctAnswer_vi: 'Tôi chơi', hint_vi: 'Lắng nghe kỹ chủ ngữ và động từ.', rationale_vi: 'Đoạn audio đọc câu "I play table tennis".', rationale_en: 'The audio says "I play table tennis".' },
             { type: 'fill-in-the-blank', question: 'G__e me the book, please.', correctAnswer: 'iv', correctAnswer_vi: 'iv (để hoàn thành "Give")', hint_vi: 'Động từ có nghĩa là "đưa cho". (2 ký tự)', rationale_vi: 'Động từ cần điền là "Give" (đưa cho).', rationale_en: 'The missing letters complete the verb "Give".' },
-            { type: 'multimedia', question: "It's a ____ computer.", mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/Thi%20Th%E1%BB%AD/Thi_trai_nghiem_2021/Lop3/images/tn-28.jpg', imagePrompt: 'A green computer.', options: [ { text: 'A. green', isCorrect: true }, { text: 'B. blue', isCorrect: false }, { text: 'C. red', isCorrect: false }, { text: 'D. green', isCorrect: false } ], correctAnswer: 'D. green', correctAnswer_vi: 'màu xanh lá', hint_vi: 'Nhìn vào màu sắc của máy tính trong hình.', rationale_vi: 'Hình ảnh cho thấy một chiếc máy tính màu đen.', rationale_en: 'The image shows a black computer.' },
+            { type: 'multimedia', question: "It's a ____ computer.", mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/Thi%20Th%E1%BB%AD/Thi_trai_nghiem_2021/Lop3/images/tn-28.jpg', imagePrompt: 'A green computer.', options: [ { text: 'A. green', isCorrect: true }, { text: 'B. blue', isCorrect: false }, { text: 'C. red', isCorrect: false }, { text: 'D. black', isCorrect: false } ], correctAnswer: 'A. green', correctAnswer_vi: 'màu xanh lá', hint_vi: 'Nhìn vào màu sắc của máy tính trong hình.', rationale_vi: 'Hình ảnh cho thấy một chiếc máy tính màu xanh lá (green).', rationale_en: 'The image shows a green computer.' },
             { type: 'fill-in-the-blank', question: 'This is _ green doll.', correctAnswer: 'a', correctAnswer_vi: 'a', hint_vi: 'Mạo từ không xác định. (1 ký tự)', rationale_vi: 'Dùng mạo từ "a" trước một danh từ đếm được số ít bắt đầu bằng phụ âm ("green").', rationale_en: 'Use the article "a" before a singular countable noun starting with a consonant sound ("green").' },
             { type: 'mc', question: 'I am fine. ... you?', options: [ { text: 'A. End', isCorrect: false }, { text: 'B. And', isCorrect: true }, { text: 'C. An', isCorrect: false }, { text: 'D. At', isCorrect: false } ], correctAnswer: 'B. And', correctAnswer_vi: 'Và', hint_vi: 'Từ dùng để hỏi lại người khác.', rationale_vi: 'Cụm từ "And you?" được dùng để hỏi lại câu hỏi tương tự (trong trường hợp này là "How are you?").', rationale_en: 'The phrase "And you?" is used to ask the same question back.' },
             { type: 'mc', question: 'Choose the odd one out:', options: [ { text: 'A. are', isCorrect: false }, { text: 'B. you', isCorrect: true }, { text: 'C. am', isCorrect: false }, { text: 'D. is', isCorrect: false } ], correctAnswer: 'B. you', correctAnswer_vi: 'bạn', hint_vi: 'Ba từ là dạng của động từ "to be".', rationale_vi: '"are", "am", "is" là các dạng của động từ "to be". "you" là một đại từ.', rationale_en: '"are", "am", "is" are forms of the verb "to be". "you" is a pronoun.' },
@@ -118,7 +101,7 @@
             { type: 'mc', question: "Is your classroom big? - …, it isn't. It’s small.", options: [ { text: 'A. Yes', isCorrect: false }, { text: 'B. Yes, it isn’t', isCorrect: false }, { text: 'C. No, it is', isCorrect: false }, { text: 'D. No', isCorrect: true } ], correctAnswer: 'D. No', correctAnswer_vi: 'Không', hint_vi: 'Vế sau của câu trả lời là "it isn\'t".', rationale_vi: 'Câu trả lời phủ định "it isn\'t" phải đi với "No".', rationale_en: 'The negative contraction "it isn\'t" must be preceded by "No".' },
             { type: 'mc', question: 'You ... Richard. You are a new student in my class.', options: [ { text: 'A. is', isCorrect: false }, { text: 'B. be', isCorrect: false }, { text: 'C. are', isCorrect: true }, { text: 'D. am', isCorrect: false } ], correctAnswer: 'C. are', correctAnswer_vi: 'are', hint_vi: 'Động từ "to be" đi với chủ ngữ "You".', rationale_vi: 'Chủ ngữ "You" đi với động từ "to be" là "are".', rationale_en: 'The subject "You" is used with the verb "are".' },
             { type: 'fill-in-the-blank', question: 'Please, be q__et.', correctAnswer: 'ui', correctAnswer_vi: 'ui (để hoàn thành "quiet")', hint_vi: 'Từ này có nghĩa là "yên lặng". (2 ký tự)', rationale_vi: 'Tính từ cần điền là "quiet" (yên lặng).', rationale_en: 'The missing letters complete the adjective "quiet".' },
-            { type: 'multimedia', question: 'Th___ are my pencils.', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2019/11/29/637106246058223806_Audio.mp3', audioContent: 'These', correctAnswer: 'ose', correctAnswer_vi: 'ose (để hoàn thành "These")', hint_vi: 'Lắng nghe từ chỉ định số nhiều. (3 ký tự)', rationale_vi: 'Đoạn audio nói "Those are my pencils".', rationale_en: 'The audio says "These are my pencils".' },
+            { type: 'multimedia', question: 'Th___ are my pencils.', mediaType: 'audio', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2019/11/29/637106246058223806_Audio.mp3', audioContent: 'These', correctAnswer: 'ese', correctAnswer_vi: 'ese (để hoàn thành "These")', hint_vi: 'Lắng nghe từ chỉ định số nhiều. (3 ký tự)', rationale_vi: 'Đoạn audio nói "These are my pencils".', rationale_en: 'The audio says "These are my pencils".' },
             { type: 'fill-in-the-blank', question: 'TEACH__R', correctAnswer: 'E', correctAnswer_vi: 'E (để hoàn thành "TEACHER")', hint_vi: 'Chức danh của người dạy học. (1 ký tự)', rationale_vi: 'Từ cần điền là "TEACHER" (giáo viên).', rationale_en: 'The missing letter completes the word "TEACHER".' },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ['Please', 'close', 'your', 'books.'], correctAnswer: 'Please close your books.', correctAnswer_vi: 'Làm ơn hãy gấp sách lại.', hint_vi: 'Câu mệnh lệnh lịch sự bắt đầu bằng "Please".', rationale_vi: 'Cấu trúc câu mệnh lệnh: "Please + động từ + ...".', rationale_en: 'Imperative sentence structure: "Please + verb + ...".' },
             { type: 'mc', question: 'What’s _______ name?', options: [ { text: 'A. you', isCorrect: false }, { text: 'B. I', isCorrect: false }, { text: 'C. his', isCorrect: true }, { text: 'D. he', isCorrect: false } ], correctAnswer: 'C. his', correctAnswer_vi: 'của anh ấy', hint_vi: 'Cần một tính từ sở hữu.', rationale_vi: 'Để hỏi tên của một người nam, ta dùng tính từ sở hữu "his".', rationale_en: 'To ask for a male person\'s name, we use the possessive adjective "his".' },
@@ -132,12 +115,12 @@
             { type: 'fill-in-the-blank', question: 'Gi_e me the book, please.', correctAnswer: 'v', correctAnswer_vi: 'v (để hoàn thành "Give")', hint_vi: 'Động từ có nghĩa là "đưa cho". (1 ký tự)', rationale_vi: 'Động từ "Give" (đưa cho).', rationale_en: 'The verb is "Give".' },
             { type: 'multimedia', question: "That's my computer _oom.", mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/Thi_cac_cap/2020-2021/Lop3/Captruong/Images/3-dt-42.jpg', imagePrompt: 'A computer room.', correctAnswer: 'r', correctAnswer_vi: 'r (để hoàn thành "room")', hint_vi: 'Từ có nghĩa là "phòng". (1 ký tự)', rationale_vi: 'Hình ảnh cho thấy một phòng máy tính (computer room).', rationale_en: 'The image shows a computer room.' },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ['I', 'am', 'a', 'student.'], correctAnswer: 'I am a student.', correctAnswer_vi: 'Tôi là một học sinh.', hint_vi: 'Bắt đầu bằng "I am".', rationale_vi: 'Cấu trúc câu giới thiệu bản thân: "I am + a/an + danh từ".', rationale_en: 'Sentence structure: "I am + a/an + noun".' },
-            { type: 'multimedia', question: 'What are these? – These are pink ______.', mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2013/11/22/635207361299814737_566X320.jpg', imagePrompt: 'Pink dolls.', correctAnswer: 'dolls', correctAnswer_vi: 'Búp bê', hint_vi: 'Tên một đồ chơi, số nhiều. (6 ký tự)', rationale_vi: 'Hình ảnh cho thấy những con búp bê màu hồng (pink rulers).', rationale_en: 'The image shows doll rulers.' },
+            { type: 'multimedia', question: 'What are these? – These are pink ______.', mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2013/11/22/635207361299814737_566X320.jpg', imagePrompt: 'Pink dolls.', correctAnswer: 'dolls', correctAnswer_vi: 'Búp bê', hint_vi: 'Tên một đồ chơi, số nhiều. (5 ký tự)', rationale_vi: 'Hình ảnh cho thấy những con búp bê màu hồng (pink dolls).', rationale_en: 'The image shows pink dolls.' },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ['Hi,', 'Mary.', 'How', 'are', 'you?'], correctAnswer: 'Hi, Mary. How are you?', correctAnswer_vi: 'Chào Mary. Bạn khỏe không?', hint_vi: 'Đây là một đoạn hội thoại chào hỏi.', rationale_vi: 'Đây là một lời chào và câu hỏi thăm sức khỏe thông thường.', rationale_en: 'This is a common greeting and inquiry about someone\'s well-being.' },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ["I'm", 'fine,', 'thank', 'you.'], correctAnswer: "I'm fine, thank you.", correctAnswer_vi: 'Tôi khỏe, cảm ơn bạn.', hint_vi: 'Câu trả lời cho "How are you?".', rationale_vi: 'Đây là câu trả lời tiêu chuẩn cho câu hỏi "How are you?".', rationale_en: 'This is the standard response to the question "How are you?".' },
             { type: 'mc', question: 'That is a big tr...e.', options: [ { text: 'A. a', isCorrect: false }, { text: 'B. u', isCorrect: false }, { text: 'C. e', isCorrect: true }, { text: 'D. i', isCorrect: false } ], correctAnswer: 'C. e', correctAnswer_vi: 'e (để hoàn thành "tree")', hint_vi: 'Từ có nghĩa là "cái cây".', rationale_vi: 'Chữ cái còn thiếu để tạo thành từ "tree" (cái cây).', rationale_en: 'The missing letter completes the word "tree".' },
             { type: 'fill-in-the-blank', question: 'Who is she? – S_e is Mary.', correctAnswer: 'h', correctAnswer_vi: 'h (để hoàn thành "She")', hint_vi: 'Đại từ nhân xưng cho nữ giới. (1 ký tự)', rationale_vi: 'Đại từ nhân xưng cho nữ giới, ngôi thứ ba số ít là "She".', rationale_en: 'The third-person singular female pronoun is "She".' },
-            { type: 'multimedia', question: 'Our ________ is not big.', mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2013/11/23/635208311247935975_566X320.jpg', imagePrompt: 'A small bathroom.', correctAnswer: 'bathroom', correctAnswer_vi: 'phòng tắm', hint_vi: 'Nơi tắm. (9 ký tự)', rationale_vi: 'Hình ảnh cho thấy một phòng tắm .', rationale_en: 'The image shows a bedroom.' },
+            { type: 'multimedia', question: 'Our ________ is not big.', mediaType: 'image', mediaSource: 'https://res.ioe.vn/edu/EOlympic/ExamData/ImageExam/2013/11/23/635208311247935975_566X320.jpg', imagePrompt: 'A small bathroom.', correctAnswer: 'bathroom', correctAnswer_vi: 'phòng tắm', hint_vi: 'Nơi tắm rửa. (8 ký tự)', rationale_vi: 'Hình ảnh cho thấy một phòng tắm nhỏ.', rationale_en: 'The image shows a small bathroom.' },
             { type: 'fill-in-the-blank', question: 'Is that __y your friend? - B: No, he isn’t.', correctAnswer: 'bo', correctAnswer_vi: 'bo (để hoàn thành "boy")', hint_vi: 'Từ chỉ một bạn nam. (2 ký tự)', rationale_vi: 'Từ cần điền là "boy" (cậu bé).', rationale_en: 'The missing letters complete the word "boy".' },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ['Hi,', 'I’m', 'John.', 'How', 'are', 'you?'], correctAnswer: 'Hi, I’m John. How are you?', correctAnswer_vi: 'Chào, tôi là John. Bạn khỏe không?', hint_vi: 'Đây là một lời chào, giới thiệu và hỏi thăm.', rationale_vi: 'Đây là một chuỗi câu giao tiếp cơ bản: chào, giới thiệu tên và hỏi thăm sức khỏe.', rationale_en: 'This is a basic conversational sequence: greeting, introduction, and inquiry.' },
             { type: 'rearrange', question: 'Sắp xếp các từ sau thành câu đúng:', words: ['Nice', 'to', 'meet', 'you.'], correctAnswer: 'Nice to meet you.', correctAnswer_vi: 'Rất vui được gặp bạn.', hint_vi: 'Câu chào hỏi khi gặp lần đầu.', rationale_vi: 'Đây là một cụm từ cố định dùng để chào hỏi.', rationale_en: 'This is a fixed phrase used as a greeting.' },
@@ -150,7 +133,7 @@
             { type: 'mc', question: 'There are ... books on the desk.', options: [ { text: 'A. a', isCorrect: false }, { text: 'B. one', isCorrect: false }, { text: 'C. much', isCorrect: false }, { text: 'D. many', isCorrect: true } ], correctAnswer: 'D. many', correctAnswer_vi: 'nhiều', hint_vi: '"books" là danh từ đếm được số nhiều.', rationale_vi: '"many" được dùng với danh từ đếm được số nhiều. "much" dùng cho danh từ không đếm được.', rationale_en: '"many" is used with plural countable nouns. "much" is used with uncountable nouns.' }
         ];
 
-        // --- Component: ProgressBar (from components/ProgressBar.tsx) ---
+        // --- Component: ProgressBar (from components/layout/ProgressBar.tsx) ---
         const ProgressBar = ({ percentage }) => (
             <div className="w-full h-2 bg-blue-100 rounded-full mt-4 overflow-hidden">
                 <div
@@ -160,7 +143,7 @@
             </div>
         );
 
-        // --- Component: MessageBox (from components/MessageBox.tsx) ---
+        // --- Component: MessageBox (from components/layout/MessageBox.tsx) ---
         const MessageBox = ({ message, type }) => {
             const [visible, setVisible] = React.useState(false);
 
@@ -182,14 +165,16 @@
             };
             const visibilityClasses = visible ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none';
 
+            if (!message) return null;
+
             return <div className={`${baseClasses} ${typeClasses[type]} ${visibilityClasses}`}>{message}</div>;
         };
-        
-        // --- Component: RationaleBox (from components/RationaleBox.tsx) ---
+
+        // --- Component: RationaleBox (from components/game/RationaleBox.tsx) ---
         const RationaleBox = ({ question, isCorrect, submittedAnswer }) => {
-            const boxClasses = `mt-6 p-4 rounded-xl border transition duration-300 fade-in border-l-4 ${
-                isCorrect ? 'bg-green-100 border-green-600' : 'bg-red-100 border-red-600'
-            }`;
+            const boxClasses = `mt-6 p-4 rounded-xl border transition duration-300 ease-in-out border-l-4 ${
+                isCorrect ? 'bg-green-50 border-green-600' : 'bg-red-50 border-red-600'
+            } animate-[fadeIn_0.5s_ease-in-out]`;
             
             const submittedAnswerDisplay = () => {
                 const isFillIn = question.type === 'fill-in-the-blank' || (question.type === 'multimedia' && !question.options);
@@ -198,7 +183,7 @@
                 return (
                     <React.Fragment>
                         <strong className="text-gray-700">
-                            {question.type === 'mc' || question.type === 'multimedia' ? 'Bạn đã chọn/Điền: ' : 'Câu trả lời của bạn: '}
+                            {question.type === 'mc' || (question.type === 'multimedia' && question.options) ? 'Bạn đã chọn: ' : 'Câu trả lời của bạn: '}
                         </strong>
                         <span className="text-red-700 font-medium break-words">{submittedAnswer}</span>
                         <br/>
@@ -209,16 +194,18 @@
             return (
                 <div className={boxClasses}>
                     <p className="font-bold text-lg mb-2 text-blue-700">Giải thích:</p>
-                    <div className="text-gray-700">
+                    <div className="text-gray-700 space-y-1">
                         {submittedAnswerDisplay()}
-                        <strong>Đáp án đúng:</strong> <span className="text-green-800 font-semibold">{question.correctAnswer}</span> <br />
+                        <div>
+                            <strong>Đáp án đúng:</strong> <span className="text-green-800 font-semibold">{question.correctAnswer}</span>
+                        </div>
                         
                         {question.correctAnswer_vi && (
-                            <React.Fragment>
-                                <strong>Nghĩa là:</strong> <span className="text-green-600 font-medium">{question.correctAnswer_vi}</span> <br/>
-                            </React.Fragment>
+                            <div>
+                                <strong>Nghĩa là:</strong> <span className="text-green-600 font-medium">{question.correctAnswer_vi}</span>
+                            </div>
                         )}
-                        <p className="mt-2">{question.rationale_vi || 'Không có giải thích chi tiết.'}</p>
+                        <p className="pt-1">{question.rationale_vi || 'Không có giải thích chi tiết.'}</p>
                     </div>
                     <div className="text-gray-600 italic mt-2 text-sm border-t border-gray-300 pt-2">
                         <strong>Rationale:</strong> {question.rationale_en || 'No detailed rationale.'}
@@ -226,7 +213,7 @@
                 </div>
             );
         };
-        
+
         // --- Component: MediaDisplay (from components/questions/MediaDisplay.tsx) ---
         const MediaDisplay = ({ question, showMessage }) => {
             if (question.mediaType === 'image') {
@@ -242,11 +229,10 @@
                             onError={(e) => { 
                                 const target = e.target;
                                 target.onerror = null; 
-                                target.src = `https://placehold.co/566x320/FF0000/FFFFFF?text=L%E1%BB%97I+T%E1%BA%A2I+%E1%BA%A2NH`; 
-                                showMessage('Lỗi tải ảnh: File media có thể bị chặn bởi trình duyệt.', 'error');
+                                target.src = `https://picsum.photos/566/320`; 
+                                showMessage('Lỗi tải ảnh gốc, ảnh thay thế được hiển thị.', 'error');
                             }}
                         />
-                        <p className="text-xs text-gray-500 mt-2 break-all">Link: {question.mediaSource}</p>
                         {question.imagePrompt && <p className="text-sm text-blue-600 mt-2 font-medium">Gợi ý: {question.imagePrompt}</p>}
                     </div>
                 );
@@ -266,10 +252,9 @@
                                 showMessage('Lỗi tải Audio: File media có thể bị chặn bởi trình duyệt.', 'error');
                             }}
                         >
-                            <source src={question.mediaSource} type="audio/mp3" />
+                            <source src={question.mediaSource} type="audio/mpeg" />
                             Trình duyệt của bạn không hỗ trợ phần tử audio.
                         </audio>
-                        <p className="text-xs text-gray-500 mt-2 break-all">Link: {question.mediaSource}</p>
                     </div>
                 );
             }
@@ -294,18 +279,18 @@
             
             const questionTextParts = React.useMemo(() => {
                 const text = question.question.replace(/^\d+\.\s*/, '');
-                const blankMarker = '____';
                 const blankRegex = /__+/;
+                if (!blankRegex.test(text)) return [text, ''];
                 const parts = text.split(blankRegex);
                 return [parts[0], parts.slice(1).join('____')];
             }, [question.question]);
 
             const isSubmissionCorrect = isAnswered && inputValue.trim().toLowerCase() === question.correctAnswer.toLowerCase();
 
-            let inputClasses = `inline-block mx-2 p-2 border-2 rounded-lg text-lg text-center shadow-sm transition duration-200 align-baseline w-48 font-mono ${
+            const inputClasses = `inline-block mx-2 p-2 border-2 rounded-lg text-lg text-center shadow-sm transition duration-200 align-baseline font-mono ${
                 isAnswered 
-                ? (isSubmissionCorrect ? 'border-green-500 bg-green-50 font-bold' : 'border-red-500 bg-red-50 font-bold')
-                : 'border-gray-300 focus:border-blue-500'
+                ? (isSubmissionCorrect ? 'border-green-500 bg-green-50 font-bold text-green-800' : 'border-red-500 bg-red-50 font-bold text-red-800')
+                : 'border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500'
             }`;
 
             const placeholderLength = question.correctAnswer.length > 0 ? question.correctAnswer.length : 4;
@@ -315,8 +300,8 @@
                 <div className="space-y-4">
                     {question.type === 'multimedia' && <MediaDisplay question={question} showMessage={showMessage} />}
                     <div className="text-xl sm:text-2xl font-semibold mb-6 leading-relaxed text-center flex justify-center items-center flex-wrap">
-                        <span>{questionIndex + 1}. </span>
-                        {questionTextParts[0] && <span className="ml-1">{questionTextParts[0]}</span>}
+                        <span className="mr-2">{questionIndex + 1}.</span>
+                        {questionTextParts[0] && <span>{questionTextParts[0]}</span>}
                         <input
                             type="text"
                             value={inputValue}
@@ -327,18 +312,19 @@
                             style={inputWidthStyle}
                             onKeyPress={(e) => e.key === 'Enter' && !isAnswered && handleSubmitClick()}
                             aria-label="Fill in the blank"
+                            autoFocus
                         />
                         {questionTextParts[1] && <span>{questionTextParts[1]}</span>}
                     </div>
                     <button
                         onClick={handleSubmitClick}
                         disabled={isAnswered}
-                        className="w-full py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-green-700 mt-4 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98"
+                        className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-green-700 mt-4 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98"
                     >Kiểm Tra</button>
                 </div>
             );
         };
-        
+
         // --- Component: MultipleChoiceQuestion (from components/questions/MultipleChoiceQuestion.tsx) ---
         const MultipleChoiceQuestion = ({ question, isAnswered, onSubmit, showMessage, questionIndex }) => {
             const [selectedIndex, setSelectedIndex] = React.useState(null);
@@ -365,18 +351,18 @@
                     />
                     <div className="space-y-4">
                         <div className="space-y-3">
-                            {question.options.map((option, index) => {
+                            {question.options?.map((option, index) => {
                                 const isSelected = selectedIndex === index;
                                 let labelClasses = "block p-4 border-2 rounded-xl shadow-md text-lg transition duration-200";
 
                                 if (isAnswered) {
                                     labelClasses += " cursor-default";
-                                    if (option.isCorrect) labelClasses += " bg-green-100 border-green-500 font-bold";
-                                    else if (isSelected) labelClasses += " bg-red-100 border-red-500 font-bold";
+                                    if (option.isCorrect) labelClasses += " bg-green-100 border-green-500 font-bold text-green-900";
+                                    else if (isSelected) labelClasses += " bg-red-100 border-red-500 font-bold text-red-900";
                                     else labelClasses += " border-gray-200 opacity-60";
                                 } else {
                                     labelClasses += " cursor-pointer hover:bg-blue-50 hover:border-blue-300";
-                                    if(isSelected) labelClasses += " bg-blue-100 border-blue-500";
+                                    if(isSelected) labelClasses += " bg-blue-100 border-blue-500 ring-2 ring-blue-400";
                                     else labelClasses += " border-gray-200";
                                 }
 
@@ -397,26 +383,38 @@
                         <button
                             onClick={handleSubmitClick}
                             disabled={isAnswered}
-                            className="w-full py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-green-700 mt-4 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98"
+                            className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-green-700 mt-4 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98"
                         >Kiểm Tra</button>
                     </div>
                 </React.Fragment>
             );
         };
-        
+
         // --- Component: RearrangeQuestion (from components/questions/RearrangeQuestion.tsx) ---
         const WordBlock = ({ word, onClick, isSource, isAnswered }) => {
-            const baseClasses = 'word-block px-3 py-2 text-base sm:text-lg font-semibold rounded-lg shadow-sm transition-all duration-150 break-words transform active:scale-95';
+            const baseClasses = 'inline-flex items-center justify-center px-3 py-2 text-base sm:text-lg font-semibold rounded-lg shadow-sm transition-all duration-150 break-words transform active:scale-95';
             const sourceClasses = isSource ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' : 'bg-gray-100 text-gray-800 border-b-2 border-gray-300';
             const disabledClasses = 'opacity-60 cursor-default shadow-inner';
             const interactiveClasses = 'cursor-pointer';
 
-            return <span onClick={!isAnswered ? onClick : undefined} className={`${baseClasses} ${sourceClasses} ${isAnswered ? disabledClasses : interactiveClasses}`}>{word.text}</span>;
+            return (
+                <span 
+                    onClick={!isAnswered ? onClick : undefined} 
+                    className={`${baseClasses} ${sourceClasses} ${isAnswered ? disabledClasses : interactiveClasses}`}
+                >
+                    {word.text}
+                </span>
+            );
         };
 
         const RearrangeQuestion = ({ question, isAnswered, onSubmit, showMessage, questionIndex, isCorrect }) => {
             const [sentenceWords, setSentenceWords] = React.useState([]);
-            const initialSourceWords = React.useMemo(() => [...question.words].map((text) => ({ id: crypto.randomUUID(), text })).sort(() => Math.random() - 0.5), [question]);
+            const initialSourceWords = React.useMemo(() => 
+                [...(question.words ?? [])]
+                    .map((text) => ({ id: crypto.randomUUID(), text }))
+                    .sort(() => Math.random() - 0.5), 
+                [question]
+            );
             const [sourceWords, setSourceWords] = React.useState(initialSourceWords);
 
             React.useEffect(() => {
@@ -465,20 +463,20 @@
                         <div className="min-h-[100px] p-4 bg-gray-100 rounded-xl shadow-md flex flex-wrap gap-2 items-center border border-gray-200">
                             {sourceWords.map(word => <WordBlock key={word.id} word={word} onClick={() => handleSelectWord(word)} isSource={true} isAnswered={isAnswered} />)}
                         </div>
-                        <button onClick={handleSubmitClick} disabled={isAnswered} className="w-full py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-green-700 mt-4 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98">Kiểm Tra</button>
+                        <button onClick={handleSubmitClick} disabled={isAnswered} className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-green-700 mt-4 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98">Kiểm Tra</button>
                     </div>
                 </React.Fragment>
             );
         };
-        
-        // --- Component: StartScreen (from components/StartScreen.tsx) ---
+
+        // --- Component: StartScreen (from components/screens/StartScreen.tsx) ---
         const StartScreen = ({ onStart }) => {
             const [name, setName] = React.useState('');
             const handleStart = () => name.trim() && onStart(name.trim());
             const isButtonDisabled = name.trim() === '';
 
             return (
-                <div className="fade-in text-center p-4">
+                <div className="animate-[fadeIn_0.5s_ease-in-out] text-center p-4">
                     <header className="mb-8">
                         <h1 className="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-2">Bài Thi Thử IOE Lớp 3</h1>
                         <p className="text-lg text-gray-500">Đề số 01: Kiến thức cơ bản ({QUESTIONS.length} câu)</p>
@@ -493,6 +491,7 @@
                                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-lg shadow-sm transition duration-150"
                                 maxLength={50} value={name} onChange={(e) => setName(e.target.value)}
                                 onKeyPress={(e) => e.key === 'Enter' && !isButtonDisabled && handleStart()}
+                                autoFocus
                             />
                             <button
                                 onClick={handleStart} disabled={isButtonDisabled}
@@ -504,7 +503,7 @@
             );
         };
         
-        // --- Component: EndScreen (from components/EndScreen.tsx) ---
+        // --- Component: EndScreen (from components/screens/EndScreen.tsx) ---
         const EndScreen = ({ playerName, score, onRestart, mistakes }) => {
             const [showReview, setShowReview] = React.useState(false);
             const maxScore = QUESTIONS.length * 10;
@@ -512,7 +511,7 @@
             const message = percentage >= 80 ? "Xuất sắc! Bạn làm rất tốt!" : percentage >= 50 ? "Khá tốt! Cố gắng hơn nữa nhé." : "Cần cố gắng thêm. Đừng nản lòng!";
 
             return (
-                <div className="text-center fade-in p-4">
+                <div className="text-center animate-[fadeIn_0.5s_ease-in-out] p-4">
                     <h2 className="text-3xl font-bold mb-4 text-green-600">🎉 Hoàn Thành Bài Thi! 🎉</h2>
                     <p className="text-xl text-gray-700 mb-2">Chúc mừng, <span className="font-extrabold text-blue-600">{playerName}</span>!</p>
                     <p className="text-lg text-gray-600 mb-6">{message}</p>
@@ -520,7 +519,7 @@
                         <p className="text-2xl font-semibold mb-8 text-gray-700">Điểm số cuối cùng của bạn:</p>
                         <p className={`text-6xl font-black mb-10 text-blue-600`}>{score} / {maxScore}</p>
                     </div>
-                    <div className="mt-8 space-x-4">
+                    <div className="mt-8 flex justify-center flex-wrap gap-4">
                         <button
                             onClick={onRestart}
                             className="py-3 px-6 bg-blue-500 text-white font-bold rounded-xl shadow-lg transition duration-300 hover:bg-blue-600 text-lg active:scale-98"
@@ -528,13 +527,13 @@
                         {mistakes.length > 0 && (
                             <button
                                 onClick={() => setShowReview(!showReview)}
-                                className="py-3 px-6 bg-red-500 text-white font-bold rounded-xl shadow-lg transition duration-300 hover:bg-red-600 text-lg active:scale-98"
+                                className="py-3 px-6 bg-yellow-500 text-white font-bold rounded-xl shadow-lg transition duration-300 hover:bg-yellow-600 text-lg active:scale-98"
                             >{showReview ? 'Ẩn câu sai' : `Xem lại ${mistakes.length} câu sai`}</button>
                         )}
                     </div>
 
                     {showReview && (
-                        <div className="mt-8 text-left border-t pt-6">
+                        <div className="mt-8 text-left border-t pt-6 animate-[fadeIn_0.5s_ease-in-out]">
                             <h3 className="text-2xl font-bold text-red-600 mb-4 text-center">Xem lại các câu sai</h3>
                             <div className="space-y-6">
                                 {mistakes.map((mistake, index) => (
@@ -551,8 +550,8 @@
                 </div>
             );
         };
-        
-        // --- Component: QuizScreen (from components/QuizScreen.tsx) ---
+
+        // --- Component: QuizScreen (from components/screens/QuizScreen.tsx) ---
         const QuizScreen = ({ playerName, onEnd }) => {
             const [shuffledQuestions, setShuffledQuestions] = React.useState([]);
             const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
@@ -613,7 +612,7 @@
                 return <div className="text-center p-8">Đang tải câu hỏi...</div>;
             }
 
-            const progressPercentage = ((currentQuestionIndex + 1) / QUESTIONS.length) * 100;
+            const progressPercentage = ((currentQuestionIndex + 1) / shuffledQuestions.length) * 100;
             
             const renderQuestionComponent = () => {
                 const commonProps = { isAnswered, onSubmit: handleSubmit, showMessage, questionIndex: currentQuestionIndex, isCorrect };
@@ -636,7 +635,7 @@
             };
 
             return (
-                <div className="fade-in">
+                <div className="animate-[fadeIn_0.5s_ease-in-out]">
                     {message && <MessageBox message={message.text} type={message.type} />}
                     <header className="text-center mb-8">
                         <h1 className="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-2">Bài Thi Thử IOE Lớp 3</h1>
@@ -646,7 +645,7 @@
                     <div className="flex justify-between items-center mb-6 py-2 px-4 bg-blue-50 rounded-xl shadow-inner border border-blue-100">
                         <p className="text-sm sm:text-base font-medium text-blue-800">Người chơi: <span className="font-bold">{playerName}</span></p>
                         <p className="text-sm sm:text-base font-medium text-blue-800">Điểm: <span className="text-xl font-extrabold text-red-600">{score}</span></p>
-                        <p className="text-sm sm:text-base font-medium text-blue-800">Câu: <span className="font-bold">{currentQuestionIndex + 1}/{QUESTIONS.length}</span></p>
+                        <p className="text-sm sm:text-base font-medium text-blue-800">Câu: <span className="font-bold">{currentQuestionIndex + 1}/{shuffledQuestions.length}</span></p>
                     </div>
 
                     <div className="mb-8">{renderQuestionComponent()}</div>
@@ -656,13 +655,14 @@
                             <button
                                 className="bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 hover:bg-yellow-600 active:scale-95"
                                 onMouseEnter={() => setIsHintVisible(true)} onMouseLeave={() => setIsHintVisible(false)}
-                            >Gợi ý</button>
-                            <div className={`absolute bottom-full mb-2 w-max max-w-[90vw] sm:max-w-sm p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-xl shadow-lg transition-all duration-300 transform origin-bottom-left ${isHintVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}>
+                                onClick={() => setIsHintVisible(v => !v)}
+                            >💡 Gợi ý</button>
+                            <div className={`absolute bottom-full mb-2 w-max max-w-[90vw] sm:max-w-sm p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-xl shadow-lg transition-all duration-300 transform origin-bottom-left z-10 ${isHintVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}>
                                 <p className="font-semibold text-yellow-800">Gợi ý:</p>
                                 <p className="text-yellow-700">{currentQuestion.hint_vi || 'Không có gợi ý.'}</p>
                             </div>
                         </div>
-                        <button onClick={handleNext} disabled={!isAnswered} className="flex-grow py-3 px-4 bg-blue-500 text-white font-bold rounded-xl shadow-xl transition duration-300 hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98">
+                        <button onClick={handleNext} disabled={!isAnswered} className="flex-grow py-3 px-4 bg-blue-500 text-white font-bold rounded-xl shadow-xl transition duration-300 hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed active:scale-98 text-lg">
                             {currentQuestionIndex === shuffledQuestions.length - 1 ? 'Hoàn Thành' : 'Câu Tiếp Theo »'}
                         </button>
                     </div>
@@ -674,7 +674,7 @@
         
         // --- Component: App (from App.tsx) ---
         const App = () => {
-            const [gameState, setGameState] = React.useState('start');
+            const [gameState, setGameState] = React.useState('start'); // 'start', 'quiz', 'end'
             const [playerName, setPlayerName] = React.useState('');
             const [score, setScore] = React.useState(0);
             const [mistakes, setMistakes] = React.useState([]);
